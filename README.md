@@ -10,7 +10,7 @@ Welcome to my personal portfolio website! This is a responsive and modern portfo
 
 ## 🚀 Live Demo
 
-🌐 [Click here to view my portfolio](https://your-deployed-link.com) *(Update with your actual link)*
+🌐 [Click here to view my portfolio](https://mohitscodiclab.github.io/Portfolio/) *(Update with your actual link)*
 
 ---
 
