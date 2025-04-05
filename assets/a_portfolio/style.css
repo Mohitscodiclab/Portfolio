@@ -1,0 +1,625 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+
+}
+
+body
+{
+    color:#f4f6f8;
+    cursor: none;
+    background: #002223;
+}
+.header
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 10%;
+    background: #57acdea5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+/* Outer circle (follows the cursor smoothly) */
+.custom-cursor {
+  position: fixed;
+  width: 30px; /* Default size */
+  height: 30px;
+  border: 2px solid white; /* White stroke */
+  background: transparent;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease-out; /* Smooth follow effect */
+  opacity: 0;
+  z-index: 9999;
+}
+
+/* Small white dot (moves instantly like a cursor) */
+.cursor-dot {
+  position: fixed;
+  width: 4px; /* Small dot */
+  height: 4px;
+  background-color: white;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease-in-out;
+  opacity: 0;
+  z-index: 9999;
+}
+
+/* Hover effect - outer circle expands */
+a:hover ~ .custom-cursor,
+button:hover ~ .custom-cursor {
+  width: 50px; /* Expand */
+  height: 50px;
+  transition: width 0.2s ease-out, height 0.2s ease-out;
+}
+  
+  
+
+.logo{
+    position: relative;
+    font-size: 25px;
+    color: #f4f6f8;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: default;
+    opacity: 0;
+    animation: slideRight 1s ease forwards;
+}
+.navbar a{
+    display: inline-block;
+    font-size: 25px;
+    color: #f4f6f8;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 35px;
+    transition: .3s;
+    opacity: 0;
+    animation: slideTop .5s ease forwards;
+    animation-delay: calc(.2s * var(--i));
+}
+.navbar a:hover{
+    color:aqua;
+}
+.home{
+    position: relative;
+    width: 100%;
+    justify-content: space-between;
+    height: 100vh;
+    background: url(wallpaper_new.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    padding: 70px 10% 0;
+}
+.home-content{
+    max-width: 600px;
+
+}
+
+
+
+
+
+
+
+
+
+.home-content h3{
+    font-size: 32px;
+    font-weight: 700;
+    opacity: 0;
+    animation: slideBottom 1s ease forwards;
+    animation-delay: .7s;
+}
+.home-content h3 span{
+    color:aqua;
+}
+.home-content h3:nth-of-type(2){
+    margin-bottom: 30px;
+    animation: slideTop 1s ease forwards;
+    animation-delay: .7s;
+
+}
+.home-content h1 {
+    font-size: 56px;
+    font-weight: 700;
+    margin: -3px 0;
+    opacity: 0;
+    animation: slideRight 1s ease forwards;
+    animation-delay: 1s;
+}
+.home-content p {
+    font-size: 20px;
+    animation: slideLeft 1s ease forwards;
+    animation-delay: 1s;
+
+}
+.home-sci a{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 2px solid aqua;
+    border-radius: 50px;
+    font-size: 20px;
+    color: aqua;
+    text-decoration: none;
+    transform: .5s ease forwards;
+    opacity: 0;
+    animation: slideLeft 1s ease forwards;
+    animation-delay: calc(.2s * var(--i));
+    margin: 30px 15px 30px 0;
+
+}
+.home-sci a:hover{
+    background: aqua;
+    color: #040f0f;
+    box-shadow: 0 0 20px aqua;
+}
+.btn-box {
+    display: inline-block;
+    padding: 12px 28px;
+    background: aqua;
+    border-radius: 40px;
+    font-size: 16px;
+    color: black;
+    letter-spacing: 1px;
+    text-decoration: none;
+    font-weight: 600;
+    animation: slideTop 1s ease forwards;
+    animation-delay: 2s;
+    box-shadow: 0 0 5px aqua, 0 0 25px #0ef; /* Fixed: Removed the comma at the end */
+}
+.btn-box:hover{
+    box-shadow: 0 0 5px cyan,
+    0 0 25px cyan, 0 0 50px cyan,
+    0 0 100px cyan, 0 0 200px cyan
+}
+.about{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    align-items: center;
+    gap: 1.5grm;
+}
+.about-img img{
+    padding-bottom: 20%;
+    max-width: 630px;
+    height: auto;
+    width: 100%;
+    border-radius: 8px;
+    
+}
+.about-text h2{
+    font-size: 60px;
+}
+.about-text h2 span{
+    color: aqua;
+}
+.about-text h4{
+    font-size: 29px;
+    font-weight: 600;
+    color: white;
+    line-height: 1.7;
+    margin: 15px 0 30px;
+}
+.about-text p{
+    color: white;
+    font-size: 20px;
+    line-height: 1.4;
+    margin-bottom: 4rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Base style - hidden initially with blur */
+.fade-text span {
+    display: inline-block;
+    opacity: 0;
+    filter: blur(8px); /* Initial blur effect */
+    transform: translateY(20px); /* Moves up slightly */
+    transition: opacity 0.5s ease-out, transform 0.5 ease-out, filter 0.5s ease-out;
+  }
+  
+  /* When class is added, text fades in smoothly */
+  .fade-text.show span {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+  
+  
+  
+
+
+
+
+/* Base style for words */
+.hover-text span {
+    display: inline-block;
+    transition: transform 0.3s ease-out, text-shadow 0.3s ease-out;
+    white-space: pre; /* Ensures spaces remain between words */
+  }
+  
+  /* Pop-up effect on hover (Words pop up) */
+  .hover-text span:hover {
+    transform: scale(1.2); /* Word pops smoothly */
+    text-shadow: 0px 0px 10px cyan; /* Cyan shadow */
+  }
+  
+  /* Each letter inside the word also moves slightly */
+  .hover-text span span {
+    display: inline-block;
+    transition: transform 0.2s ease-out;
+  }
+  
+  /* Letter pop-up effect */
+  .hover-text span:hover span {
+    transform: scale(1.1); /* Letters slightly expand */
+  }
+  
+
+
+
+
+
+
+
+.sub-title{
+    text-align: center;
+    font-size: 60px;
+    padding-bottom: 70px;
+}
+.sub-title span{
+    color: aqua;
+}
+.container{
+    padding: 90px;
+
+}
+.services-list{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(259px,1fr));
+    grid-gap: 40px;
+    margin-top: 50px;
+}
+.services-list div{
+    background-color: transparent;
+    padding: 40px;
+    font-size: 13px;
+    font-weight: 13px;
+    border-right: 10px;
+    border-radius: 20px;
+    transition: background 0.5s, transform 0.5s;
+    box-shadow: 1px 1px 20px #012290f7,
+                1px 1px 40px #0053b8f7
+}
+.services-list div i{
+    font-size: 50px;
+    margin-bottom: 30px;
+}
+.services-list div h2 {
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+.services-list div a {
+    text-decoration: none;
+    color: #000000;
+    font-size: 12px;
+    margin-top: 20px;
+    display: inline-block;
+}
+.read {
+    display: inline-block;
+    padding: 12px;
+    background: aqua;
+    border-radius: 40px;
+    font-size: 16px;
+    color: #081b29;
+    letter-spacing: 1px;
+    text-decoration: none;
+    font-weight: 600;
+    opacity: 0;
+    animation: slideTop 1s ease forwards;
+    animation-delay: 2s;
+    box-shadow: 0 0 5px aqua,
+    0 0 25px aqua
+}
+.read:hover {
+    box-shadow: 0 0 5px cyan,
+    0 0 25px cyan, 0 0 50px cyan,
+    0 0 100px cyan, 0 0 200px cyan;
+    
+}
+.services-list div:hover{
+    transform: translateY(-10px);
+}
+/*no change below code*/
+/* Skills Section */
+.sub-title {
+    text-align: center;
+    font-size: 60px;
+    padding-bottom: 70px;
+    padding-top: 30px;
+}
+
+.sub-title span {
+    color: cyan;
+}
+.section{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+.container1 {
+    width: 600px;
+    height: auto;
+    padding: 75px 90px;
+    margin-left: 0 auto;
+}
+
+.heading1 {
+    text-align: center;
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    text-decoration-thickness: 5px;
+    margin-bottom: 50px;
+}
+
+.Technical-bars .bar {
+    font-size: 23px;
+    margin: 40px 0;
+    position: relative;
+}
+
+.Technical-bars .bar .info {
+    margin-bottom: 5px;
+}
+
+.Technical-bars .bar .info span {
+    font-size: 17px;
+    font-weight: 500;
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+}
+
+/* ✅ Progress Bar Container */
+.Technical-bars .bar .progress-line {
+    position: relative;
+    border-radius: 10px;
+    width: 100%;
+    height: 8px;
+    background-color: black; /* Changed to black */
+    overflow: hidden;
+}
+
+/* ✅ Progress Bar Animation */
+.Technical-bars .bar .progress-line span {
+    display: block;
+    height: 100%;
+    background: cyan;
+    border-radius: 10px;
+    width: 0;
+    animation: fillProgress 2s ease-in-out forwards;
+}
+
+/* ✅ Percentage Text Above Progress Bar */
+.Technical-bars .bar .progress-value {
+    position: absolute;
+    top: -22px;  /* Reduced distance from progress bar */
+    left: 0;
+    background: black; /* Changed to black */
+    color: white; /* Changed text color to white */
+    padding: 4px 6px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+    opacity: 0;
+    animation: fadeIn 2s ease-in-out forwards, moveRight 2s ease-in-out forwards;
+}
+
+/* 🔻 Triangle Below Percentage */
+.Technical-bars .bar .progress-value::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-top-color: black; /* Match background color */
+    bottom: -8px; /* Adjusted distance */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* ✅ Keyframes for Progress Bar */
+@keyframes fillProgress {
+    0% { width: 0; }
+    100% { width: var(--progress-width); }
+}
+
+/* ✅ Keyframes for Percentage Text */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* ✅ Keyframes for Moving Percentage */
+@keyframes moveRight {
+    0% { left: 0; }
+    100% { left: var(--progress-width); }
+}
+
+/* ✅ Individual Skill Progress Levels */
+.progress-line.html span { --progress-width: 90%; }
+.progress-line.css3 span { --progress-width: 85%; }
+.progress-line.javascript span { --progress-width: 75%; }
+.progress-line.python span { --progress-width: 80%; }
+.progress-line.react span { --progress-width: 70%; }
+
+.radial-bars {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 40px; /* Adds space between the circles */
+}
+
+.radial-bars .radial-bar {
+    width: 45%; /* Adjust width to ensure proper spacing */
+    height: 170px;
+    margin-bottom: 20px; /* Adds some extra space */
+    position: relative;
+}
+
+/* ✅ Circular Progress Bar */
+.progress-bar {
+    fill: transparent;
+    stroke-width: 10;
+    stroke: #444;
+}
+
+.path {
+    stroke-width: 10;
+    stroke: cyan;
+    fill: transparent;
+    stroke-dasharray: 502;
+    stroke-dashoffset: 502;
+    stroke-linecap: round;
+}
+
+/* ✅ Animating Progress Paths (Now with Smooth Animation) */
+.path-1 { animation: animate-path1 1s ease-in-out forwards; }
+.path-2 { animation: animate-path2 1s ease-in-out forwards; }
+.path-3 { animation: animate-path3 1s ease-in-out forwards; }
+.path-4 { animation: animate-path4 1s ease-in-out forwards; }
+
+@keyframes animate-path1 { 
+    from { stroke-dashoffset: 502; } 
+    to { stroke-dashoffset: 50; } /* 90% */
+}
+@keyframes animate-path2 { 
+    from { stroke-dashoffset: 502; } 
+    to { stroke-dashoffset: 175; } /* 65% */
+}
+@keyframes animate-path3 { 
+    from { stroke-dashoffset: 502; } 
+    to { stroke-dashoffset: 0; } /* 100% */
+}
+@keyframes animate-path4 { 
+    from { stroke-dashoffset: 502; } 
+    to { stroke-dashoffset: 200; } /* 60% */
+}
+
+
+
+/* ✅ Percentage Text (Centered Inside Circle) */
+.radial-bar .percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    font-weight: bold;
+    color: cyan;
+}
+
+/* ✅ Skill Name (Placed at Top Left Corner of the Circle) */
+.radial-bar .text {
+    position: absolute 5px;
+    top: 0;
+    left: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+
+
+.radial-bar .percentage{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 17px;
+    font-weight: 500;
+    animation: showText 0.5s 1s linear forwards;
+    opacity: 90;
+}
+
+.progress-bar .text{
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    left: 50%;
+    bottom: -5px;
+    transform: translateX(-50%);
+    font-size: 20px;
+    font-weight: 500;
+    animation: showText 0.5s 1s linear forwards;
+}
+
+
+@keyframes slideRight{
+    0%{
+        transform: translateX(-100px);
+    }
+    100%{
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+@keyframes slideLeft{
+    0%{
+        transform: translateX(100px);
+    }
+    100%{
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+@keyframes slideTop{
+    0%{
+        transform: translateY(100px);
+    }
+    100%{
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+@keyframes slideBottom{
+    0%{
+        transform: translateY(-100px);
+    }
+    100%{
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
