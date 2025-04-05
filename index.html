@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<!-- Website - www.codingnepalweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Portfolio</title>
+        <link rel="stylesheet" href="style.css">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+  </head>
+
+
+
+
+
+  <!-- In <head> OR before </body> -->  
+  <!-- <style>
+
+This option disable text selection on the entire page.
+
+  body {
+    -webkit-user-select: none; /* Chrome/Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE10+ */
+    user-select: none;         /* Standard */
+  }
+
+</style>
+     -->  
+  <script>
+    // Disable right-click
+    document.addEventListener('contextmenu', event => event.preventDefault());
+  </script>
+  <script>
+    document.addEventListener('copy', function(e) {
+      e.preventDefault();
+      const secretScript = `
+  🚫 Copying is not allowed!
+  💡 Visit: https://github.com/Mohitscodiclab for official content.
+  🧠 Respect the creator - Mohit Kumar
+  `;
+  
+      if (e.clipboardData) {
+        e.clipboardData.setData('text/plain', secretScript);
+      } else if (window.clipboardData) {
+        window.clipboardData.setData('Text', secretScript);
+      }
+    });
+  </script>
+  <script>
+    document.addEventListener('copy', function(e) {
+      alert("Bahen ke L***d Text copy karega, 📛 Copying is disabled. Respect original content! ✋");
+    });
+  </script>
+
+
+
+
+  <body>
+    <!-- Move to up button -->
+    <div class="scroll-button">
+      <a href="#home"><i class='bx bx-up-arrow-alt'></i></a>
+    </div>
+    <!-- navgaition menu -->
+    <nav>
+      <div class="navbar">
+        <div class="logo"><a href="#">Portfolio.</a></div>
+        <ul class="menu">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <div class="cancel-btn">
+            <i class="bx bx-x"></i>
+          </div>
+        </ul>
+        <div class="media-icons">
+            <a href="https://www.facebook.com/share/1F4veY4QkA/" target="_blank" style="--i:7;"><i class='bx bxl-facebook'></i></a>
+            <a href="https://www.instagram.com/official_mohit_10x/" target="_blank" style="--i:8;"><i class='bx bxl-instagram'></i></a>
+            <a href="https://github.com/Mohitscodiclab" target="_blank" style="--i:9;"><i class='bx bxl-github'></i></a>
+            <a href="https://wa.me/9471866129" target="_blank" style="--i:10;"><i class='bx bxl-whatsapp'></i></a>
+            <a href="https://youtube.com/@mohitscodiclab?sub_confirmation=1" target="_blank" style="--i:11;"><i class='bx bxl-youtube'></i></a>
+        </div>
+      </div>
+      <div class="menu-btn">
+        <i class="bx bx-menu"></i>
+      </div>
+    </nav>
+
+
+
+
+    <!-- Home Section Start -->
+    <section class="home" id="home">
+      <div class="home-content">
+        <div class="text">
+          <div class="text-one">Hello,</div>
+          <div class="text-two">Mohit Kumar</div>
+          <div class="text-three">And I'm a <span class="typing"></span></div>
+          <div class="text-four">From Bihar</div>
+        </div>
+        <div class="button">
+          <button>Learn More</button>
+        </div>
+      </div>
+    </section>
+    <!-- About Section Start -->
+    <section class="about" id="about">
+      <div class="content">
+        <div class="title"><span>About Me</span></div>
+        <div class="about-details">
+          <div class="left">
+            <img src="assets/img/MOHIT_PHOTO4.jpg" alt="" />
+          </div>
+          <div class="right">
+            <div class="topic">Designing Is My Passion</div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt, porro veritatis pariatur, nobis voluptatem ipsum repellat nemo quisquam error reprehenderit recusandae odio vel, suscipit. Voluptas mollitia accusantium quaerat aspernatur labore dolorum placeat ipsa sint nam perspiciatis eos consectetur veritatis debitis, quis aliquam unde sed maiores sit! Hic molestiae optio iste
+              iure earum amet nostrum quaerat facere quae veniam maiores harum iusto aperiam vel inventore illo voluptatibus voluptates quo impedit voluptatum error vitae, omnis praesentium? Aperiam nulla non, nesciunt fuga rem perferendis alias et, temporibus, distinctio culpa unde a laborum libero ducimus. Facilis veniam sit praesentium, voluptatibus sint maxime iusto eaque.
+            </p>
+            <div class="button">
+                <a href="#" download>
+                    <button>Download CV</button>
+                </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- My Skill Section Start -->
+    <!-- Section Tag and Other Div will same where we need to put same CSS -->
+    <section class="skills" id="skills">
+      <div class="content">
+        <div class="title"><span>My Skills</span></div>
+        <div class="skills-details">
+          <div class="text">
+            <div class="topic">Skills Reflects Our Knowledge</div>
+            <p>I have hands-on experience in building unique projects, including a full-featured Tally ERP 9-like application for shop management 
+                and a no-code website builder platform. My technical stack includes Python (especially FastAPI), JavaScript, and React.js for building 
+                powerful backend and frontend systems. I am also proficient in creative tools like Adobe After Effects for video editing and design work. 
+                With a strong interest in automation, animations, and user-centric design, I continuously strive to push boundaries and bring innovative ideas to life.</p>
+            <div class="experience">
+              <div class="num">02</div>
+              <div class="exp">
+                Years Of <br />
+                Experience
+              </div>
+            </div>
+          </div>
+          <div class="boxes">
+            <div class="box">
+              <div class="topic">HTML</div>
+              <div class="per">90%</div>
+            </div>
+            <div class="box">
+              <div class="topic">CSS</div>
+              <div class="per">80%</div>
+            </div>
+            <div class="box">
+              <div class="topic">JavScript</div>
+              <div class="per">70%</div>
+            </div>
+            <div class="box">
+              <div class="topic">PYTHON</div>
+              <div class="per">60%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- My Services Section Start -->
+    <section class="services" id="services">
+      <div class="content">
+        <div class="title"><span>My Services and My Projects</span></div>
+        <div class="boxes">
+          <div class="box">
+            <div class="icon">
+              <i class="bx bx-desktop"></i>
+            </div>
+            <div class="topic">Web Devlopment</div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia autem quam odio, qui voluptatem eligendi?</p>
+          </div>
+          <div class="box">
+            <div class="icon">
+              <i class="bx bx-palette"></i>
+            </div>
+            <div class="topic">Graphic Design</div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia autem quam odio, qui voluptatem eligendi?</p>
+          </div>
+          <div class="box">
+            <div class="icon">
+              <i class="bx bx-camera"></i>
+            </div>
+            <div class="topic">Photography</div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia autem quam odio, qui voluptatem eligendi?</p>
+          </div>
+        
+
+          <div class="box">
+            <div class="icon">
+              <a href="assets\s_c_p/index.html" target="_blank">
+                <i class="bx bxs-calculator"></i>
+              </a>
+            </div>
+            <div class="topic">Simple Calculator</div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia autem quam odio, qui voluptatem eligendi?</p>
+          </div>
+          
+          <div class="box">
+            <div class="icon">
+                <a href="assets/f_d_w/index.html" target="_balnk">
+                    <i class="bx bxs-bowl-hot"></i>
+                </a>
+            </div>
+            <div class="topic">Food Delivery Website</div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia autem quam odio, qui voluptatem eligendi?</p>
+          </div>
+          <div class="box">
+            <div class="icon">
+                <a href="assets\sci_c/index.html" target="_blank">
+                    <i class="bx bxs-calculator"></i>
+                </a>
+            </div>
+            <div class="topic">Scientific Calculator</div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia autem quam odio, qui voluptatem eligendi?</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Contact Me section Start -->
+    <section class="contact" id="contact">
+      <div class="content">
+        <div class="title"><span>Contact Me</span></div>
+        <div class="text">
+          <div class="topic">When ever you want</div>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam neque ipsum corrupti dolores, facere numquam voluptate aspernatur sit perferendis qui nisi modi! Recusandae deserunt consequatur voluptatibus alias repellendus nobis eligendi.</p>
+          <div class="button">
+            <a href="https://wa.me/9471866129" target="_blank">
+              <button>Let's have a Chat</button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer Section Start -->
+    <footer>
+      <div class="text">
+        <span>Created By <a href="#">Mohit'scodiclab</a> | &#169; 2025 All Rights Reserved</span>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
+
+
