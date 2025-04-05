@@ -9,7 +9,7 @@ Welcome to my personal portfolio website! This is a responsive and modern portfo
 
 ## 🚀 Live Demo
 
-🌐 [Click here to view my portfolio](https://mohitscodiclab.github.io/Portfolio/) *(Update with your actual link)*
+🌐 [Click here to view my portfolio](https://mohitscodiclab.github.io/Portfolio/) 
 
 ---
 
@@ -82,7 +82,7 @@ To run the project locally:
 ## 📷 Screenshots
 
 ![image](https://github.com/user-attachments/assets/bed9003b-537d-439e-875a-ef48124dd78c)
-*(Add screenshots of the homepage, about section, projects, etc. if you'd like)*
+
 
 ---
 
