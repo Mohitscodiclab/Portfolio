@@ -82,6 +82,10 @@ To run the project locally:
 ## 📷 Screenshots
 
 ![image](https://github.com/user-attachments/assets/bed9003b-537d-439e-875a-ef48124dd78c)
+![image](https://github.com/user-attachments/assets/3130778f-2d4a-4da2-adef-8b1160065d5b)
+![image](https://github.com/user-attachments/assets/00625ab4-3431-413f-a665-3d1d866ebc91)
+![image](https://github.com/user-attachments/assets/836ad630-645c-4eed-8c2d-c47187f90b73)
+
 
 
 ---
