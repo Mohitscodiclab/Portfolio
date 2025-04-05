@@ -1,4 +1,3 @@
-Sure! Here's a professional `README.md` file for your portfolio website project. This file explains what the project is, how to run it, and what technologies it uses. You can copy this into your project folder and upload it to GitHub.
 
 ---
 
