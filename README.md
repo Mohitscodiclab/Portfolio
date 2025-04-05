@@ -81,6 +81,7 @@ To run the project locally:
 
 ## 📷 Screenshots
 
+![image](https://github.com/user-attachments/assets/bed9003b-537d-439e-875a-ef48124dd78c)
 *(Add screenshots of the homepage, about section, projects, etc. if you'd like)*
 
 ---
