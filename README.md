@@ -105,8 +105,3 @@ All rights reserved © 2025
 ## 📄 License
 
 This project is for educational and personal portfolio use only. Please contact me before using any part of this for commercial projects.
-```
-
----
-
-Let me know if you want this in Hindi as well or want to include a screenshot or GIF of the website in action! 😄
