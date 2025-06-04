@@ -1,6 +1,3 @@
-
----
-
 # 💼 Mohit Kumar's Portfolio Website
 
 Welcome to my personal portfolio website! This is a responsive and modern portfolio created using HTML, CSS, JavaScript, and some external libraries. It showcases my skills, projects, services, and provides contact information to connect with me.
