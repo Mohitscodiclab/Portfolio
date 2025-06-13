@@ -1,6 +1,23 @@
-// new feature added by mohit
+document.addEventListener("DOMContentLoaded", function() {
+    const ctaBtn = document.querySelector('.cta-btn');
+    const orderBtns = document.querySelectorAll('.order-btn');
+  
+    // Smooth scroll to the menu section
+    ctaBtn.addEventListener('click', () => {
+      document.getElementById('menu').scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  
+    orderBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        alert('Thank you for ordering! We will deliver your food soon.');
+      });
+    });
+  });
+  
 
-const words = ["Fast", "Tasty", "Affordable", "Fresh", "On-Time"];
+  const words = ["Fast ", "Tasty ", "Affordable ", "Fresh ", "On-Time "];
 let i = 0, j = 0, currentWord = '', isDeleting = false;
 
 function typeEffect() {
@@ -31,25 +48,3 @@ function typeEffect() {
 }
 
 document.addEventListener("DOMContentLoaded", typeEffect);
-
-
-
-document.addEventListener("DOMContentLoaded", function() {
-    const ctaBtn = document.querySelector('.cta-btn');
-    const orderBtns = document.querySelectorAll('.order-btn');
-  
-    // Smooth scroll to the menu section
-    ctaBtn.addEventListener('click', () => {
-      document.getElementById('menu').scrollIntoView({
-        behavior: 'smooth'
-      });
-    });
-  
-    orderBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        alert('Thank you for ordering! We will deliver your food soon.');
-      });
-    });
-  });
-
-
