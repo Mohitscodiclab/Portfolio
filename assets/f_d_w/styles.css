@@ -67,27 +67,44 @@
   
   /* Hero Section */
   .hero {
-    background-image: url('hero-bg.jpg');
-    background-size: cover;
-    height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: #fff;
-  }
-  
-  .hero-content h2 {
-    font-size: 3rem;
-    margin-bottom: 10px;
-    color: hsl(24, 91%, 50%);
-  }
-  
-  .hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    color: black;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 100px 20px;
+  flex-wrap: wrap;
+}
+
+.hero-content {
+  max-width: 500px;
+  text-align: center;
+}
+
+.hero-image img {
+  width: 300px;
+  animation: floatImage 4s ease-in-out infinite;
+  margin-top: 20px;
+}
+
+@keyframes floatImage {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+#type {
+  color: #ff5722;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+
+.typing-text {
+  font-size: 1.2rem;
+  color: #555;
+  height: 30px;
+  margin: 10px 0;
+}
+
   
   .cta-btn {
     background-color: #ff6347;
