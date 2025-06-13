@@ -8,7 +8,7 @@
   /* Body */
   body {
     font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
+    background-color: #fff;
     color: #333;
   }
   
@@ -55,14 +55,14 @@
     background-color: #ffdb58;
     color: #ff6347;
     border: none;
-    padding: 10px 20px;
+    padding: 5px 10px;
     cursor: pointer;
     font-size: 1.1rem;
     transition: background-color 0.3s ease;
   }
   
   nav .order-now:hover {
-    background-color: #ffe600;
+    background-color: hwb(38 0% 0%);
   }
   
   /* Hero Section */
