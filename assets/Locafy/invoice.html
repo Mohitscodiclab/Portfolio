@@ -1,0 +1,443 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Verification - Hindustan Beej Bhandar</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        /* Base Styling */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        /* PDF Download Mode - Forces clean layout */
+        .pdf-mode {
+            background: white !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .pdf-mode .container {
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            margin: 0 !important;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        h1 { color: #2E7D32; margin: 0; font-size: 28px; }
+        .subtitle { color: #666; font-size: 14px; margin-bottom: 25px; }
+        
+        .section { margin-top: 20px; font-size: 15px; line-height: 1.6; }
+        .label { font-weight: bold; color: #333; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            page-break-inside: auto;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th { background: #2E7D32; color: white; text-transform: uppercase; letter-spacing: 1px; }
+
+        .total {
+            text-align: right;
+            font-size: 22px;
+            margin-top: 25px;
+            font-weight: bold;
+            color: #2E7D32;
+        }
+
+        .notice {
+            margin-top: 30px;
+            padding: 15px;
+            background: #FFF3CD;
+            border: 1px solid #ffeeba;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+        .action-area {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn-3d {
+            padding: 12px 25px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .whatsapp-btn { background: #25D366; box-shadow: 0 4px #128C7E; }
+        .download-btn { background: #1976D2; box-shadow: 0 4px #0D47A1; }
+        .btn-3d:active { transform: translateY(3px); box-shadow: none; }
+
+        /* Print Specifics */
+        @media print {
+            thead { display: table-header-group; } /* Repeats header on next page */
+            tr { page-break-inside: avoid; }
+            .action-area, .notice { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="invoice-box">
+    <h1>Hindustan Beej Bhandar</h1>
+    <div class="subtitle">Thali Bazar, Near Petrol Pump</div>
+    
+    <div id="dynamic-content">
+        </div>
+</div>
+
+<script>
+// 1. Get Data from LocalStorage
+const orderData = JSON.parse(localStorage.getItem("hbb_invoice"));
+
+// 2. Unit Calculation Helper
+function formatUnit(baseUnit, qty) {
+    if (!baseUnit) return qty;
+    const match = baseUnit.match(/^(\d+(?:\.\d+)?)\s*([a-zA-Z]+)$/);
+    if (match) {
+        const val = parseFloat(match[1]);
+        const label = match[2];
+        return `${(val * qty)}${label}`;
+    }
+    return `${qty} ${baseUnit.replace(/^\d+\s*/, '')}`;
+}
+
+// 3. Main Logic
+if (!orderData) {
+    document.getElementById("dynamic-content").innerHTML = "<h2>No Order Data Found!</h2>";
+} else {
+    let rows = "";
+    let waItems = "";
+    let totalAmt = 0;
+
+    orderData.items.forEach(item => {
+        const p = parseFloat(String(item.price).replace(/,/g, '')) || 0;
+        const sub = p * item.quantity;
+        totalAmt += sub;
+        const unitDisplay = formatUnit(item.unit, item.quantity);
+
+        rows += `
+        <tr>
+            <td><strong>${item.name}</strong><br><small style="color:#666">Total: ${unitDisplay}</small></td>
+            <td>${item.quantity}</td>
+            <td>₹${p.toLocaleString('en-IN', {minimumFractionDigits:2})}</td>
+            <td>₹${sub.toLocaleString('en-IN', {minimumFractionDigits:2})}</td>
+        </tr>`;
+
+        waItems += `${item.name} (${unitDisplay}) x${item.quantity} = ₹${sub.toLocaleString('en-IN')}%0A`;
+    });
+
+    const totalStr = totalAmt.toLocaleString('en-IN', {minimumFractionDigits: 2});
+
+    document.getElementById("dynamic-content").innerHTML = `
+        <div class="section">
+            <div><span class="label">Invoice ID:</span> ${orderData.invoiceId}</div>
+            <div><span class="label">Date:</span> ${orderData.date}</div>
+        </div>
+
+        <div class="section">
+            <div><span class="label">Customer Name:</span> ${orderData.customerName}</div>
+            <div><span class="label">Father Name:</span> ${orderData.fatherName}</div>
+            <div><span class="label">Phone:</span> ${orderData.phone}</div>
+            <div><span class="label">Address:</span> ${orderData.address}, ${orderData.district}, ${orderData.state} - ${orderData.pincode}</div>
+        </div>
+
+        <div class="section">
+            <div><span class="label">Payment:</span> ${orderData.paymentApp} | <span class="label">UTR:</span> ${orderData.utr}</div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th style="width:50px">Qty</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+        </table>
+
+        <div class="total">Grand Total : ₹${totalStr}</div>
+
+        <div class="notice">
+            ⚠️ IMPORTANT: Download PDF and send it on WhatsApp to confirm your order.
+        </div>
+
+        <div class="action-area">
+            <a class="btn-3d whatsapp-btn" href="https://wa.me/919931753119?text=*HINDUSTAN BEEJ BHANDAR ORDER*%0AInvoice: ${orderData.invoiceId}%0A%0A${waItems}%0AGrand Total: ₹${totalStr}%0AUTR: ${orderData.utr}" target="_blank">📲 Send on WhatsApp</a>
+            <button class="btn-3d download-btn" onclick="downloadInvoice()">📥 Download Invoice (PDF)</button>
+        </div>
+    `;
+}
+
+// 4. THE ULTIMATE PDF FUNCTION
+function downloadInvoice() {
+    const element = document.getElementById('invoice-box');
+    
+    // 1. Prepare for capture
+    document.body.classList.add('pdf-mode');
+    const actionArea = document.querySelector('.action-area');
+    const notice = document.querySelector('.notice');
+    
+    // Use opacity instead of display:none during capture to prevent "blank" errors
+    actionArea.style.opacity = '0';
+    notice.style.opacity = '0';
+
+    const options = {
+        margin: [0.4, 0.4, 0.4, 0.4],// top, left, bottom, right
+        filename: `${orderData.invoiceId}.pdf`,
+        image: { type: 'jpeg', quality: 1 },
+        html2canvas: { 
+            scale: 2, 
+            useCORS: true,
+            logging: false,
+            letterRendering: true,
+            scrollY: -window.scrollY // This cancels out your current scroll position perfectly
+        },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    };
+
+    // 2. The Secret Fix: Add a tiny timeout so the browser renders the content
+    setTimeout(() => {
+        html2pdf().set(options).from(element).save().then(() => {
+            // 3. Restore UI
+            document.body.classList.remove('pdf-mode');
+            actionArea.style.opacity = '1';
+            notice.style.opacity = '1';
+        }).catch(err => {
+            console.error("PDF Error:", err);
+            alert("Error generating PDF. Please try again.");
+        });
+    }, 1500); // 150ms delay is enough for the browser to ready the pixels
+}
+</script>
+
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - Hindustan Beej Bhandar</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f5f5f5; padding: 20px; margin: 0; }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        /* Mode for clean capture without shadows/padding */
+        .snapshot-mode { background: white !important; padding: 0 !important; }
+        .snapshot-mode .container { box-shadow: none !important; margin: 0 !important; width: 100% !important; max-width: 100% !important; border-radius: 0 !important; }
+
+        h1 { color: #2E7D32; margin: 0; }
+        .subtitle { color: #666; font-size: 14px; margin-bottom: 20px; }
+        .section { margin-top: 20px; font-size: 14px; line-height: 1.6; }
+        .label { font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; table-layout: fixed; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; word-wrap: break-word; vertical-align: top; }
+        th { background: #2E7D32; color: white; }
+        .col-item { width: 45%; }
+        .col-qty { width: 15%; }
+        .col-price { width: 20%; }
+        .col-total { width: 20%; }
+        .total-row { text-align: right; font-size: 20px; margin-top: 20px; font-weight: bold; color: #2E7D32; }
+        .notice { margin-top: 30px; padding: 15px; background: #FFF3CD; text-align: center; font-weight: bold; }
+        .action-area { display: flex; gap: 10px; justify-content: center; margin-top: 30px; }
+        .btn { padding: 12px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; text-decoration: none; border: none; color: white; }
+        .whatsapp-btn { background: #25D366; }
+        .download-btn { background: #1976D2; }
+        @media print { thead { display: table-header-group; } tr { page-break-inside: avoid; } }
+    </style>
+</head>
+<body>
+
+<div class="container" id="invoice-box">
+    <h1>Hindustan Beej Bhandar</h1>
+    <div class="subtitle">Thali Bazar, Near Petrol Pump</div>
+    <div id="content"></div>
+</div>
+
+<script>
+const data = JSON.parse(localStorage.getItem("hbb_invoice"));
+
+function getUnit(base, qty) {
+    if (!base) return qty;
+    const m = base.match(/^(\d+(?:\.\d+)?)\s*([a-zA-Z]+)$/);
+    if (m) return (parseFloat(m[1]) * qty) + m[2];
+    return qty + " " + base;
+}
+
+if (data) {
+    let rows = "";
+    let grandTotal = 0;
+    let itemsText = ""; 
+
+    data.items.forEach(i => {
+        const price = parseFloat(String(i.price).replace(/,/g, '')) || 0;
+        const sub = price * i.quantity;
+        grandTotal += sub;
+        const measure = getUnit(i.unit, i.quantity);
+
+        rows += `
+        <tr>
+            <td><strong>${i.name}</strong><br><small style="color:#666">Total: ${measure}</small></td>
+            <td>${i.quantity}</td>
+            <td>₹${price.toLocaleString('en-IN')}</td>
+            <td>₹${sub.toLocaleString('en-IN')}</td>
+        </tr>`;
+        
+        itemsText += `• ${i.name} (${measure}) x${i.quantity} = ₹${sub.toLocaleString('en-IN')}%0A`;
+    });
+
+    const totalStr = grandTotal.toLocaleString('en-IN', {minimumFractionDigits: 2});
+
+    const fullWaMessage = `*HINDUSTAN BEEJ BHANDAR ORDER*%0A%0A` +
+        `*Invoice:* ${data.invoiceId}%0A` +
+        `*Date:* ${data.date}%0A` +
+        `*Customer:* ${data.customerName}%0A` +
+        `*Father's Name:* ${data.fatherName}%0A` +
+        `*Phone:* ${data.phone}%0A` +
+        `*Address:* ${data.address}, ${data.district}, ${data.state}%0A` +
+        `*Payment:* ${data.paymentApp} | *UTR:* ${data.utr}%0A%0A` +
+        `*ITEMS:*%0A${itemsText}%0A` +
+        `*Grand Total: ₹${totalStr}*`;
+
+    document.getElementById("content").innerHTML = `
+        <div class="section">
+            <p><span class="label">Invoice:</span> ${data.invoiceId} | <span class="label">Date:</span> ${data.date}</p>
+            <p><span class="label">Customer:</span> ${data.customerName} | <span class="label">Phone:</span> ${data.phone}</p>
+            <p><span class="label">Father Name:</span> ${data.fatherName}</p>
+            <p><span class="label">Address:</span> ${data.address}, ${data.district}, ${data.state}</p>
+            <p><span class="label">Payment:</span> ${data.paymentApp} | <span class="label">UTR:</span> ${data.utr}</p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="col-item">Item</th>
+                    <th class="col-qty">Qty</th>
+                    <th class="col-price">Price</th>
+                    <th class="col-total">Total</th>
+                </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+        </table>
+
+        <div class="total-row">Grand Total : ₹${totalStr}</div>
+
+        <div class="notice">⚠️ Take Snapshot & Send to WhatsApp to confirm your order</div>
+
+        <div class="action-area">
+            <a class="btn whatsapp-btn" href="https://wa.me/919931753119?text=${fullWaMessage}">Send WhatsApp</a>
+            <button class="btn download-btn" onclick="takeSnapshot()">Take Snapshot</button>
+        </div>
+    `;
+}
+
+// CHANGED: New function to take a high-quality full-page screenshot
+function takeSnapshot() {
+    const element = document.getElementById('invoice-box');
+    const action = document.querySelector('.action-area');
+    const notice = document.querySelector('.notice');
+
+    // Prepare for clean snapshot
+    document.body.classList.add('snapshot-mode');
+    action.style.display = 'none';
+    notice.style.display = 'none';
+
+    // Using html2canvas for universal device compatibility
+    html2canvas(element, {
+        scale: 3, // High resolution (works great for mobile and desktop)
+        useCORS: true,
+        backgroundColor: "#ffffff",
+        logging: false,
+        windowWidth: element.scrollWidth,
+        windowHeight: element.scrollHeight
+    }).then(canvas => {
+        // Create link and download the image
+        const link = document.createElement('a');
+        link.download = `Invoice_${data.invoiceId}.png`;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+
+        // Restore UI
+        document.body.classList.remove('snapshot-mode');
+        action.style.display = 'flex';
+        notice.style.display = 'block';
+    });
+}
+</script>
+</body>
+</html>

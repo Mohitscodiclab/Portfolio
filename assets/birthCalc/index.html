@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dark Age Calculator</title>
+  <link rel="icon" type="image/png" href="asset/img/favicon.png">
+  <style>
+    body {
+      background-color: #0b0b0b;
+      color: #f1f1f1;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      color: #0affef;
+      text-shadow: 0 0 8px #0affef;
+      margin-bottom: 1rem;
+    }
+
+    .calculator {
+      background-color: #161616;
+      border: 1px solid #333;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.1);
+      width: 340px;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+
+    input[type="date"] {
+      background-color: #1f1f1f;
+      color: #fff;
+      border: 1px solid #444;
+      border-radius: 6px;
+      padding: 0.5rem;
+      width: 100%;
+      outline: none;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    button {
+      flex: 1;
+      background-color: #0affef;
+      color: #000;
+      border: none;
+      padding: 0.7rem 1rem;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #06d6d1;
+      box-shadow: 0 0 10px #0affef;
+    }
+
+    .reset-btn {
+      background-color: #222;
+      color: #fff;
+    }
+
+    .reset-btn:hover {
+      background-color: #333;
+      box-shadow: 0 0 8px #888;
+    }
+
+    .result {
+      margin-top: 1.5rem;
+      background-color: #101010;
+      border: 1px solid #222;
+      border-radius: 10px;
+      padding: 1rem;
+      line-height: 1.6;
+      box-shadow: inset 0 0 10px rgba(0,255,255,0.05);
+    }
+
+    .highlight {
+      color: #0affef;
+      font-weight: bold;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    footer a {
+      color: #0affef;
+      text-decoration: none;
+      margin: 0 10px;
+      display: inline-flex;
+      align-items: center;
+      transition: 0.3s;
+    }
+
+    footer a:hover {
+      color: #06d6d1;
+      text-shadow: 0 0 8px #0affef;
+    }
+
+    footer img {
+      width: 20px;
+      height: 20px;
+      margin-right: 6px;
+      filter: invert(100%) drop-shadow(0 0 2px #0affef);
+    }
+  </style>
+</head>
+<body>
+  <h1>Age Calculator</h1>
+  <div class="calculator">
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" />
+
+    <label for="today">Age at the Date of:</label>
+    <input type="date" id="today" />
+
+    <div class="button-group">
+      <button onclick="calculateAge()">Calculate</button>
+      <button class="reset-btn" onclick="resetForm()">Reset</button>
+    </div>
+
+    <div id="result" class="result"></div>
+  </div>
+
+  <footer>
+    <p style="margin: 0.5rem 0; font-size: 1rem; color: #ccc;">
+      ✨ Designed & Developed by 
+      <a href="https://github.com/mohitscodiclab" target="_blank" style="color: #0affef; text-decoration: none;">Mohit</a>
+    </p>
+
+    <div style="margin-top: 0.5rem;">
+      <a href="https://github.com/mohitscodiclab" target="_blank" style="margin: 0 10px; color: #f1f1f1; text-decoration: none;">
+        <i class="fab fa-github" style="margin-right: 6px; color: #0affef;"></i> GitHub
+      </a>
+      |
+      <a href="https://www.instagram.com/Official_mohit_10x" target="_blank" style="margin: 0 10px; color: #f1f1f1; text-decoration: none;">
+        <i class="fab fa-instagram" style="margin-right: 6px; color: #e1306c;"></i> Instagram
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    function calculateAge() {
+      const dob = new Date(document.getElementById('dob').value);
+      const today = new Date(document.getElementById('today').value);
+      if (!dob || !today || dob > today) {
+        document.getElementById('result').innerHTML = '<span class="highlight">Please enter valid dates.</span>';
+        return;
+      }
+
+      let years = today.getFullYear() - dob.getFullYear();
+      let months = today.getMonth() - dob.getMonth();
+      let days = today.getDate() - dob.getDate();
+
+      if (days < 0) {
+        months--;
+        const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+        days += prevMonth.getDate();
+      }
+
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      const diffTime = Math.abs(today - dob);
+      const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      const totalWeeks = Math.floor(totalDays / 7);
+      const totalHours = totalDays * 24;
+      const totalMinutes = totalHours * 60;
+      const totalSeconds = totalMinutes * 60;
+
+      document.getElementById('result').innerHTML = `
+        <div><span class="highlight">Age:</span> ${years} years ${months} months ${days} days</div>
+        <div>or ${years * 12 + months} months ${days} days</div>
+        <div>or ${totalWeeks} weeks ${totalDays % 7} days</div>
+        <div>or ${totalDays.toLocaleString()} days</div>
+        <div>or ${totalHours.toLocaleString()} hours</div>
+        <div>or ${totalMinutes.toLocaleString()} minutes</div>
+        <div>or ${totalSeconds.toLocaleString()} seconds</div>
+      `;
+    }
+
+    function resetForm() {
+      document.getElementById('dob').value = '';
+      document.getElementById('today').value = '';
+      document.getElementById('result').innerHTML = '';
+    }
+  </script>
+</body>
+</html>

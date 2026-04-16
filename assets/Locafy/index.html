@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hindustan Beej Bhandar</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        /* ===============================
+GLOBAL
+=============================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Segoe UI, Arial, sans-serif;
+        }
+
+        body {
+
+            background: linear-gradient(135deg, #1b5e20, #2e7d32, #43a047);
+
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #222;
+
+        }
+
+        /* ===============================
+3D BACKGROUND SHAPES
+=============================== */
+
+        .background-shapes {
+
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+
+        }
+
+        .shape {
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            border-radius: 30px;
+
+            background: linear-gradient(135deg, #4caf50, #81c784);
+
+            opacity: .15;
+
+            filter: blur(2px);
+
+            transition: transform 1.5s ease;
+
+        }
+
+        .shape.circle {
+            border-radius: 50%;
+        }
+
+        .shape.triangle {
+
+            width: 0;
+            height: 0;
+
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-bottom: 180px solid rgba(76, 175, 80, 0.18);
+
+            background: none;
+
+        }
+
+        /* ===============================
+HEADER / HERO
+=============================== */
+
+        .hero {
+
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+                url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
+
+            background-size: cover;
+            background-position: center;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 80px 20px;
+
+        }
+
+        .hero h1 {
+
+            font-size: 40px;
+            margin-bottom: 10px;
+
+        }
+
+        .hero p {
+
+            font-size: 18px;
+
+        }
+
+        /* ===============================
+MAIN CONTAINER
+=============================== */
+
+        .container {
+
+            max-width: 1200px;
+            margin: auto;
+            padding: 40px 20px;
+
+        }
+
+        /* ===============================
+SEARCH BAR
+=============================== */
+
+        .search input {
+
+            width: 100%;
+            padding: 14px;
+
+            border-radius: 12px;
+            border: none;
+
+            font-size: 16px;
+
+            box-shadow: 0 6px 15px rgba(0, 0, 0, .2);
+
+        }
+
+        /* ===============================
+CATEGORY FILTER
+=============================== */
+
+        .filters {
+
+            margin: 25px 0;
+
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+
+        }
+
+        .filter-btn {
+
+            padding: 10px 16px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #e0e0e0;
+
+            cursor: pointer;
+
+            font-weight: 600;
+
+            transition: .3s;
+
+        }
+
+        .filter-btn:hover {
+
+            transform: translateY(-2px);
+
+        }
+
+        .filter-btn.active {
+
+            background: #2e7d32;
+            color: white;
+
+        }
+
+        /* ===============================
+PRODUCT GRID
+=============================== */
+
+        .grid {
+
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
+
+        }
+
+        /* ===============================
+PRODUCT CARD
+=============================== */
+        .card {
+
+            background: rgba(255, 255, 255, 0.9);
+
+            border-radius: 18px;
+
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+            transform-style: preserve-3d;
+            perspective: 1000px;
+
+        }
+
+        .card:hover {
+
+            transform: translateY(-8px);
+
+            box-shadow: 0 30px 60px rgba(0, 0, 0, .25);
+
+        }
+
+        /* product image */
+
+        .card img {
+
+            width: 85%;
+            height: 180px;
+
+            object-fit: cover;
+
+            border-radius: 12px;
+
+            margin: 15px auto 0 auto;
+
+            display: block;
+
+            transition: transform .35s ease;
+
+        }
+
+        .card:hover img {
+
+            transform: scale(1.15);
+
+        }
+
+        /* card content */
+
+        .card-body {
+            padding: 18px;
+        }
+
+        .card-title {
+
+            font-size: 20px;
+            font-weight: bold;
+
+            margin-bottom: 5px;
+
+        }
+
+        .card-desc {
+
+            color: #555;
+            font-size: 14px;
+
+            margin-bottom: 10px;
+
+        }
+
+        .card-price {
+
+            font-weight: bold;
+            font-size: 18px;
+
+            margin-bottom: 12px;
+
+        }
+
+        .badge {
+
+            background: #ff9800;
+            color: white;
+
+            padding: 3px 8px;
+
+            border-radius: 6px;
+
+            font-size: 12px;
+
+            margin-left: 6px;
+
+        }
+
+        /* ===============================
+BUTTON
+=============================== */
+
+        .btn {
+
+            background: linear-gradient(135deg, #2E7D32, #43A047);
+
+            color: white;
+
+            border: none;
+
+            padding: 12px;
+
+            width: 100%;
+
+            border-radius: 10px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: .25s;
+
+        }
+
+        .btn:hover {
+
+            transform: scale(1.05);
+
+            background: linear-gradient(135deg, #1B5E20, #2E7D32);
+
+        }
+
+        /* ===============================
+FLOATING CART
+=============================== */
+
+        .floating-cart {
+
+            position: fixed;
+
+            right: 25px;
+            bottom: 80px;
+
+            width: 60px;
+            height: 60px;
+
+            background: #5D4037;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            font-size: 24px;
+
+            cursor: pointer;
+
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .35);
+
+        }
+
+        .cart-count {
+
+            position: absolute;
+
+            top: -6px;
+            right: -6px;
+
+            background: red;
+            color: white;
+
+            width: 22px;
+            height: 22px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 12px;
+
+        }
+
+        /* ===============================
+MODAL
+=============================== */
+
+        .modal-overlay {
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background: rgba(0, 0, 0, .6);
+
+            display: none;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+        }
+
+        .modal {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 12px;
+
+            width: 100%;
+            max-width: 600px;
+
+            max-height: 90vh;
+
+            overflow: auto;
+
+        }
+
+        /* ===============================
+CART ITEMS
+=============================== */
+
+        .cart-item {
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 12px;
+
+        }
+
+        .qty-btn {
+
+            width: 28px;
+            height: 28px;
+
+            border: none;
+
+            background: #ddd;
+
+            border-radius: 4px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+        /* ===============================
+FORM
+=============================== */
+
+        .form-control {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            border: 1px solid #ccc;
+
+            margin-bottom: 12px;
+
+        }
+
+       /* ===============================
+MODERN CONTACT SECTION
+=============================== */
+.contact {
+    /* A rich dark green gradient replacing the plain brown */
+    background: linear-gradient(135deg, #1e3c20, #0d1f10); 
+    color: #ffffff;
+    padding: 80px 20px 40px;
+    margin-top: 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Adds a nice subtle orange/green border line at the top */
+.contact::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #ff9800, #4caf50, #ff9800);
+}
+
+.contact-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.contact-header h2 {
+    font-size: 40px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+.contact-header p {
+    color: #a5d6a7;
+    font-size: 18px;
+}
+
+.contact-info-cards {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+}
+
+/* Glassmorphic Contact Cards */
+.info-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 320px;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.info-card .icon {
+    font-size: 28px;
+    background: rgba(76, 175, 80, 0.2);
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.info-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-text strong {
+    font-size: 18px;
+    color: #e8f5e9;
+    margin-bottom: 4px;
+}
+
+.info-text span {
+    font-size: 14px;
+    color: #b0bec5;
+    line-height: 1.4;
+    word-break: break-all;
+}
+
+.contact-action {
+    margin-bottom: 40px;
+}
+
+/* Giant WhatsApp Button */
+.whatsapp-btn-large {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: #25d366;
+    color: #ffffff;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy hover */
+}
+
+.whatsapp-btn-large:hover {
+    background: #1ebe5d;
+    transform: scale(1.08) translateY(-3px);
+    box-shadow: 0 15px 35px rgba(37, 211, 102, 0.5);
+}
+
+.contact-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    text-align: center;
+    padding-top: 30px;
+    color: #78909c;
+    font-size: 14px;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .contact-info-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+    .info-card {
+        width: 100%;
+        max-width: 400px;
+    }
+    .contact-header h2 {
+        font-size: 32px;
+    }
+}
+        /* ===============================
+RESPONSIVE
+=============================== */
+
+        @media(max-width:768px) {
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        /* PARALLAX BACKGROUND */
+
+        .parallax-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            background-image: url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1920&q=80");
+
+            background-size: cover;
+            background-position: center;
+
+            z-index: -2;
+
+            transform: translateZ(0);
+            will-change: transform;
+
+            filter: brightness(0.8);
+        }
+
+
+        * {
+            scroll-behavior: smooth;
+        }
+
+        .card,
+        button,
+        .filter-btn {
+
+            transition: all .25s cubic-bezier(.25, .8, .25, 1);
+
+        }
+
+        .grid {
+
+            animation: fadeUp .6s ease;
+
+        }
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        /* ===============================
+MODERN CART ITEMS
+=============================== */
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-info h4 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .cart-qty-controls {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 0 15px;
+        }
+
+        .qty-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: #f0f0f0;
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .qty-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .qty-text {
+            width: 30px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .cart-item-subtotal {
+            font-weight: bold;
+            font-size: 16px;
+            color: #2E7D32;
+            min-width: 60px;
+            text-align: right;
+        }
+
+        #cart-total {
+            text-align: right;
+            margin: 20px 0;
+            font-size: 22px;
+            color: #1b5e20;
+            border-top: 2px dashed #ccc;
+            padding-top: 15px;
+        }
+
+        /* Modal Buttons Layout (For Back & Submit) */
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #9e9e9e, #757575);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #757575, #616161);
+        }
+
+
+/* ===============================
+TOAST NOTIFICATION
+=============================== */
+#toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    font-size: 16px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+    opacity: 0;
+    transition: opacity 0.3s, bottom 0.3s;
+}
+
+#toast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 40px;
+}
+
+/* Clear Cart Button Style */
+.btn-danger {
+    background: linear-gradient(135deg, #d32f2f, #b71c1c);
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #b71c1c, #c62828);
+}
+
+
+
+
+.quote-wrapper {
+    font-family: 'Orbitron', sans-serif; /* Or Arial if Orbitron isn't loaded */
+    color: #FFD700; /* Gold color to match your original subtitle */
+    font-size: 1.1rem;
+    min-height: 2em;
+    margin-top: 10px;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+#typing-quote::after {
+    content: "|";
+    color: #fff;
+    animation: blink 0.7s infinite;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+
+
+
+
+
+    </style>
+
+</head>
+
+<body>
+
+    <header class="hero">
+
+        <h1>Hindustan Beej Bhandar</h1>
+        <div class="quote-wrapper">
+    "<span id="typing-quote">As Season Changes We Adapt</span>"
+</div>
+        <div class="parallax-bg"></div>
+
+    </header>
+
+    <section class="container">
+
+        <div class="search">
+
+            <input type="text" id="searchInput" placeholder="Search products..." oninput="renderProducts()" />
+
+        </div>
+
+        <div class="filters">
+
+            <button class="filter-btn active" onclick="setFilter('all',this)">All</button> <button class="filter-btn"
+                onclick="setFilter('Our Seeds',this)">Seeds</button> <button class="filter-btn"
+                onclick="setFilter('Pesticides',this)">Pesticides</button> <button class="filter-btn"
+                onclick="setFilter('Herbicides',this)">Herbicides</button> <button class="filter-btn"
+                onclick="setFilter('Equipment',this)">Equipment</button> <button class="filter-btn"
+                onclick="setFilter('Cold Drinks',this)">Cold Drinks</button>
+
+        </div>
+
+        <div id="products-container"></div>
+
+    </section>
+    <div id="toast">Item added to cart!</div>
+
+    <div class="floating-cart" onclick="openCart()">
+        🛒
+        <div class="cart-count" id="cart-count">0</div>
+    </div>
+
+    <div class="modal-overlay" id="cartModal">
+
+        <div class="modal">
+
+            <h2>Your Cart</h2>
+
+            <div id="cart-items"></div>
+
+            <h3 id="cart-total"></h3>
+
+            <div class="modal-buttons">
+    <button type="button" class="btn btn-secondary" onclick="closeCart()">Shopping</button>
+    <button type="button" class="btn btn-danger" onclick="clearCart()">Clear Cart</button>
+    <button class="btn" onclick="openCheckout()">Checkout</button>
+</div>
+
+        </div>
+
+    </div>
+
+    <div class="modal-overlay" id="checkoutModal">
+
+        <div class="modal">
+
+            <h2>Checkout</h2>
+
+            <form id="checkoutForm" action="https://formspree.io/f/mjgarryn" method="POST">
+
+                <input class="form-control" name="Customer_Name" placeholder="Customer Name" required>
+                <input class="form-control" name="Father_Name" placeholder="Father Name" required>
+                <input class="form-control" name="Phone" placeholder="Phone" required>
+
+                <input class="form-control" name="Address" placeholder="Address" required>
+                <input class="form-control" name="District" placeholder="District" required>
+                <input class="form-control" name="State" placeholder="State" required>
+                <input class="form-control" name="Pincode" placeholder="Pincode" required>
+
+                <select class="form-control" name="Payment_App" required>
+
+                    <option value="">Payment App</option>
+                    <option>UPI</option>
+                    <option>PhonePe</option>
+                    <option>Google Pay</option>
+                    <option>Paytm</option>
+
+                </select>
+
+                <input class="form-control" name="UTR_Number" placeholder="UTR / Transaction ID" required>
+
+                <div class="modal-buttons">
+                    <button type="button" class="btn btn-secondary" onclick="backToCart()">Back to Cart</button>
+                    <button type="submit" class="btn">Place Order</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <section class="contact">
+        <div class="contact-container">
+            
+            <div class="contact-header">
+                <h2>Hindustan Beej Bhandar</h2>
+                <p>Growing together, every season.</p>
+            </div>
+
+           <div class="contact-info-cards">
+                <a href="https://maps.app.goo.gl/hzyMdncgB5v7LT3D7" target="_blank" class="info-card" style="text-decoration: none;">
+                    <span class="icon">📍</span>
+                    <div class="info-text">
+                        <strong>Visit Us</strong>
+                        <span>Thali Bazar, Near Petrol Pump</span>
+                    </div>
+                </a>
+
+                <a href="tel:+919931753119" class="info-card" style="text-decoration: none;">
+                    <span class="icon">📞</span>
+                    <div class="info-text">
+                        <strong>Call Us</strong>
+                        <span>+91 9931753119</span>
+                    </div>
+                </a>
+
+                <a href="mailto:luciferdevil805126+hbb@gmail.com" class="info-card" style="text-decoration: none;">
+                    <span class="icon">📧</span>
+                    <div class="info-text">
+                        <strong>Email Us</strong>
+                        <span>luciferdevil805126+hbb@gmail.com</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="contact-action">
+                <a href="https://wa.me/919931753119" class="whatsapp-btn-large" target="_blank">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+                    </svg>
+                    Chat on WhatsApp
+                </a>
+            </div>
+
+            <div class="contact-footer">
+                &copy; 2026 Hindustan Beej Bhandar. All Rights Reserved.
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+
+
+function showToast(productName) {
+    const toast = document.getElementById("toast");
+    toast.innerText = `${productName} added to cart! 🛒`;
+    toast.className = "show";
+    
+    // Hide the toast after 2.5 seconds
+    setTimeout(function() { 
+        toast.className = toast.className.replace("show", ""); 
+    }, 2500);
+}
+
+function clearCart() {
+    if (cart.length === 0) return; // Don't do anything if cart is already empty
+    
+    if (confirm("Are you sure you want to empty your entire cart?")) {
+        cart = [];
+        saveCart();
+        renderCart();
+        updateCartCount();
+    }
+}
+
+
+        function closeCart() {
+    document.getElementById("cartModal").style.display = "none";
+}
+        const bg = document.querySelector(".parallax-bg");
+
+        document.addEventListener("mousemove", e => {
+
+            const x = (e.clientX / window.innerWidth - 0.5) * 30;
+            const y = (e.clientY / window.innerHeight - 0.5) * 30;
+
+            bg.style.transform = `translate(${x}px, ${y}px) scale(1.05)`;
+
+        });
+
+
+
+        document.getElementById("checkoutForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    // --- NEW CONFIRMATION PROMPT ---
+    const userConfirmed = confirm("After clicking OK you will be unable to change or edit anything, and your order will be sent to the owner. Do you want to proceed?");
+    
+    if (!userConfirmed) {
+        return; // Stops the form from submitting if they click Cancel
+    }
+    // -------------------------------
+
+    const fd = new FormData(this);
+
+    const name = (fd.get("Customer_Name") || "")
+        .toUpperCase()
+        .replace(/[^A-Z0-9]/g, "")
+        .substring(0, 5) || "CUST";
+
+    const now = new Date();
+
+    const date =
+        now.getFullYear() +
+        (now.getMonth() + 1).toString().padStart(2, "0") +
+        now.getDate().toString().padStart(2, "0");
+
+    const time =
+        now.getHours().toString().padStart(2, "0") +
+        now.getMinutes().toString().padStart(2, "0") +
+        now.getSeconds().toString().padStart(2, "0");
+
+    const invoiceId = `INV-${date}-${time}-${name}`;
+
+    let total = 0;
+    cart.forEach(i => total += i.price * i.quantity);
+
+    // Make sure you have all the fields we fixed earlier!
+    const orderData = {
+        invoiceId,
+        customerName: fd.get("Customer_Name"),
+        fatherName: fd.get("Father_Name"),
+        phone: fd.get("Phone"),
+        address: fd.get("Address"),
+        district: fd.get("District"),
+        state: fd.get("State"),
+        pincode: fd.get("Pincode"),
+        paymentApp: fd.get("Payment_App"),
+        utr: fd.get("UTR_Number"),
+        items: cart,
+        total,
+        date: new Date().toLocaleString("en-IN")
+    };
+
+
+// ===============================
+// Our services Started
+// ===============================
+
+
+    localStorage.setItem("hbb_invoice", JSON.stringify(orderData));
+
+    await fetch(this.action, {
+        method: "POST",
+        body: fd,
+        headers: { Accept: "application/json" }
+    });
+
+    cart = [];
+    saveCart();
+    updateCartCount();
+
+    // Close the checkout modal automatically after success
+    document.getElementById("checkoutModal").style.display = "none";
+    
+    window.open("invoice.html", "_blank");
+}); 
+
+
+
+// ===============================
+// our services stoped 
+// ===============================
+
+    // localStorage.setItem("hbb_invoice", JSON.stringify(orderData));
+
+    // 🛑 COMMENT OUT OR DELETE FORMSPREE FETCH
+    // await fetch(this.action, {
+    //     method: "POST",
+    //     body: fd,
+    //     headers: { Accept: "application/json" }
+    // });
+
+    // We will NOT clear the cart here, so if they go to WhatsApp, 
+    // they can still look at what they wanted to buy!
+
+    // document.getElementById("checkoutModal").style.display = "none";
+    
+    // 🚀 REDIRECT TO YOUR NEW SUPPORT PAGE INSTEAD OF THE INVOICE
+    // window.location.href = "support.html";
+// });
+
+
+
+
+
+        const cards = document.querySelectorAll(".card");
+
+        cards.forEach(card => {
+
+            card.addEventListener("mousemove", e => {
+
+                const rect = card.getBoundingClientRect();
+
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = -(y - centerY) / 10;
+                const rotateY = (x - centerX) / 10;
+
+                card.style.transform =
+                    `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+
+            });
+
+            card.addEventListener("mouseleave", () => {
+
+                card.style.transform = "rotateX(0) rotateY(0) scale(1)";
+
+            });
+
+        });
+
+
+
+
+        let products = []
+        let cart = JSON.parse(localStorage.getItem("hbb_cart")) || []
+        let activeFilter = "all"
+
+        async function loadProducts() {
+
+            const res = await fetch("products.json")
+            products = await res.json()
+
+            renderProducts()
+
+        }
+
+        function setFilter(cat, btn) {
+
+            activeFilter = cat
+
+            document.querySelectorAll(".filter-btn")
+                .forEach(b => b.classList.remove("active"))
+
+            btn.classList.add("active")
+
+            renderProducts()
+
+        }
+
+        function renderProducts() {
+
+            const search = document
+                .getElementById("searchInput")
+                .value.toLowerCase()
+
+            let filtered = products.filter(p => {
+
+                return (
+
+                    p.visible !== false &&
+
+                    (activeFilter === "all" || p.category === activeFilter)
+
+                    &&
+
+                    p.name.toLowerCase().includes(search)
+
+                )
+
+            })
+
+            const container = document.getElementById("products-container")
+
+            container.innerHTML = '<div class="grid"></div>'
+
+            const grid = container.querySelector(".grid")
+
+            filtered.forEach(p => {
+
+                grid.innerHTML += `
+
+<div class="card">
+
+<img src="${p.image}">
+
+<div class="card-body">
+
+<div class="card-title">
+
+${p.emoji || ""} ${p.name}
+
+${p.badge ? `<span class="badge">${p.badge}</span>` : ""}
+
+</div>
+
+<div class="card-desc">${p.description}</div>
+
+<div class="card-price">
+
+₹${p.price} (${p.unit})
+
+</div>
+
+<button class="btn" onclick="addToCart(${p.id})">
+
+Add to Cart
+
+</button>
+
+</div>
+
+</div>
+
+`
+
+            })
+
+        }
+
+        function addToCart(id) {
+    const p = products.find(x => x.id === id);
+    const e = cart.find(x => x.id === id);
+
+    if (e) e.quantity++;
+    else cart.push({ ...p, quantity: 1 });
+
+    saveCart();
+    updateCartCount();
+    
+    // Trigger the notification!
+    showToast(p.name);
+}
+
+        function changeQty(id, d) {
+
+            const i = cart.find(x => x.id === id)
+
+            i.quantity += d
+
+            if (i.quantity <= 0)
+                cart = cart.filter(x => x.id !== id)
+
+            saveCart()
+            renderCart()
+            updateCartCount()
+
+        }
+
+        function saveCart() {
+            localStorage.setItem("hbb_cart", JSON.stringify(cart))
+        }
+
+        function updateCartCount() {
+
+            document.getElementById("cart-count").innerText =
+                cart.reduce((s, i) => s + i.quantity, 0)
+
+        }
+
+        function openCart() {
+    renderCart(); // This builds the HTML
+    document.getElementById("cartModal").style.display = "flex"; // This shows the window
+}
+
+
+       function renderCart() {
+    const c = document.getElementById("cart-items");
+    c.innerHTML = "";
+    let total = 0;
+
+    cart.forEach(i => {
+        const price = parseFloat(String(i.price).replace(/,/g, '')) || 0;
+        const sub = price * i.quantity;
+        total += sub;
+
+        // Calculate the dynamic measurement (e.g., 500ml -> 1000ml)
+        const measurement = getDynamicUnit(i.unit, i.quantity);
+
+        c.innerHTML += `
+        <div class="cart-item">
+            <div class="cart-item-info">
+                <h4 style="margin-bottom: 2px;">${i.name}</h4>
+                <small style="color: #666; font-weight: 500;">${measurement}</small>
+            </div>
+            <div class="cart-qty-controls">
+                <button class="qty-btn" onclick="changeQty(${i.id},-1)">-</button>
+                <div class="qty-text">${i.quantity}</div>
+                <button class="qty-btn" onclick="changeQty(${i.id},1)">+</button>
+            </div>
+            <div class="cart-item-subtotal">₹${sub.toLocaleString('en-IN', {minimumFractionDigits: 2})}</div>
+        </div>
+        `;
+    });
+
+    document.getElementById("cart-total").innerText = "Total: ₹" + total.toLocaleString('en-IN', {minimumFractionDigits: 2});
+}
+
+function getDynamicUnit(baseUnit, quantity) {
+    if (!baseUnit) return quantity;
+    const match = baseUnit.match(/^(\d+(?:\.\d+)?)\s*([a-zA-Z]+)$/);
+    if (match) {
+        const value = parseFloat(match[1]);
+        const unitLabel = match[2];
+        return `${(value * quantity).toFixed(0)}${unitLabel}`;
+    }
+    return `${quantity} ${baseUnit.replace(/^\d+\s*/, '')}`;
+}
+
+
+
+
+const quotes = [
+    "As Season Changes We Adapt",
+    "Engineered Seeds for a Changing World",
+    "Biological Excellence. Seasonal Resilience",
+    "Your Growth is Our Core Mission",
+    "Terraforming the Future, One Seed at a Time",
+    "Evolution in Every Single Grain"
+];
+
+let quoteIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+const typingSpeed = 80;    // Speed of typing each letter
+const deletingSpeed = 40;  // Speed of deleting each letter
+const pauseTime = 2000;    // Wait time at the end of a quote
+
+function startTypingEffect() {
+    const currentFullText = quotes[quoteIndex];
+    const displayElement = document.getElementById("typing-quote");
+
+    if (isDeleting) {
+        // Removing letters
+        displayElement.textContent = currentFullText.substring(0, charIndex - 1);
+        charIndex--;
+    } else {
+        // Adding letters
+        displayElement.textContent = currentFullText.substring(0, charIndex + 1);
+        charIndex++;
+    }
+
+    // Determine speed for next loop
+    let delta = isDeleting ? deletingSpeed : typingSpeed;
+
+    // Logic to switch between typing and deleting
+    if (!isDeleting && charIndex === currentFullText.length) {
+        // Pause at the end of the quote
+        isDeleting = true;
+        delta = pauseTime;
+    } else if (isDeleting && charIndex === 0) {
+        // Move to the next quote
+        isDeleting = false;
+        quoteIndex = (quoteIndex + 1) % quotes.length;
+        delta = 500;
+    }
+
+    setTimeout(startTypingEffect, delta);
+}
+
+// Initialize when page loads
+document.addEventListener("DOMContentLoaded", () => {
+    // Small delay before starting
+    setTimeout(startTypingEffect, 1000);
+});
+
+
+
+
+
+
+function backToCart() {
+    document.getElementById("checkoutModal").style.display = "none";
+    document.getElementById("cartModal").style.display = "flex";
+}
+
+        function openCheckout() {
+
+            document.getElementById("cartModal")
+                .style.display = "none"
+
+            document.getElementById("checkoutModal")
+                .style.display = "flex"
+
+        }
+
+        document.getElementById("checkoutForm")
+            .addEventListener("submit", async function (e) {
+
+                e.preventDefault()
+
+                const fd = new FormData(this)
+
+                const name = (fd.get("Customer_Name") || "")
+                    .toUpperCase()
+                    .replace(/[^A-Z0-9]/g, "")
+                    .substring(0, 5) || "CUST"
+
+                const now = new Date()
+
+                const date =
+                    now.getFullYear() +
+                    (now.getMonth() + 1).toString().padStart(2, "0") +
+                    now.getDate().toString().padStart(2, "0")
+
+                const time =
+                    now.getHours().toString().padStart(2, "0") +
+                    now.getMinutes().toString().padStart(2, "0") +
+                    now.getSeconds().toString().padStart(2, "0")
+
+                const invoiceId = `INV-${date}-${time}-${name}`
+
+                let total = 0
+
+                cart.forEach(i => total += i.price * i.quantity)
+
+                const orderData = {
+                    invoiceId,
+                    customerName: fd.get("Customer_Name"),
+                    fatherName: fd.get("Father_Name"),     // Added
+                    phone: fd.get("Phone"),
+                    address: fd.get("Address"),           // Added
+                    district: fd.get("District"),         // Added
+                    state: fd.get("State"),               // Added
+                    pincode: fd.get("Pincode"),           // Added
+                    paymentApp: fd.get("Payment_App"),    // Added
+                    utr: fd.get("UTR_Number"),            // Added
+                    items: cart,
+                    total,
+                    date: new Date().toLocaleString("en-IN")
+                }
+
+                localStorage.setItem("hbb_invoice", JSON.stringify(orderData))
+
+                await fetch(this.action, {
+                    method: "POST",
+                    body: fd,
+                    headers: { Accept: "application/json" }
+                })
+
+                cart = []
+                saveCart()
+                updateCartCount()
+
+                window.open("invoice.html", "_blank")
+
+            })
+
+        loadProducts()
+        updateCartCount()
+
+
+        // Close modals if the user clicks the dark background overlay
+window.addEventListener("click", function(event) {
+    const cartModal = document.getElementById("cartModal");
+    const checkoutModal = document.getElementById("checkoutModal");
+    
+    if (event.target === cartModal) {
+        closeCart();
+    }
+    if (event.target === checkoutModal) {
+        // Use the backToCart function we made earlier!
+        backToCart(); 
+    }
+});
+
+    </script>
+
+</body>
+
+</html>
