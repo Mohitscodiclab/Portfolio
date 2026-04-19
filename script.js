@@ -49,7 +49,7 @@ navLinks.forEach((link) => {
 
 
 var typed = new Typed(".typing", {
-  strings: ["Frontend Developer", "Youtuber", "Web Developer", "Photographer"],
+  strings: ["Frontend Developer", "Vibe Coder", "Web Developer","Youtuber", "Photographer"],
   typeSpeed: 100,
   backSpeed: 100,
   backDelay: 1000,
